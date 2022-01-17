@@ -17,7 +17,8 @@ class ItemForm extends React.Component {
             createdAt: moment(),
             calendarFocused: false,
             errorState: "",
-            selectedFile: null
+            selectedFile: null,
+            changedImage: false
         }
 
         if (props.callAPI) {
@@ -82,36 +83,57 @@ class ItemForm extends React.Component {
         })
     }
 
-    onEditItem = () => {
+    onEditItem = async () => {
+        // const id = this.state.id
+
+        // const updatedName = this.state.description
+        // const updatedStock = this.state.stock
+        // const updatedNote = this.state.note
+        // const updatedCreatedAt = this.state.createdAt
+
+        // const updates = {
+        //     name: updatedName,
+        //     stock: updatedStock,
+        //     note: updatedNote,
+        //     createdAt: updatedCreatedAt
+        // }
+        // let url = "http://localhost:8080/updateItem?id=" + encodeURIComponent(id) + "&name=" +
+        //     encodeURIComponent(updates.name) + "&stock=" + encodeURIComponent(updates.stock) + "&createdAt="
+        //     + encodeURIComponent(moment(updates.createdAt).unix() * 1000) + "&note=" + encodeURIComponent(updates.note)
+
+        // let req = new Request(url, {
+        //     method: "PATCH",
+        // })
+
+        // fetch(req).then(async (response, error) => {
+        //     if (error) {
+        //         console.log("error")
+        //         return
+        //     }
+
+        //     return
+        // })
         const id = this.state.id
 
-        const updatedName = this.state.description
-        const updatedStock = this.state.stock
-        const updatedNote = this.state.note
-        const updatedCreatedAt = this.state.createdAt
+        const formData = new FormData()
+        formData.append("name", this.state.description)
+        formData.append("stock", this.state.stock)
+        formData.append("createdAt", moment(this.state.createdAt).unix() * 1000)
+        formData.append("note", this.state.note)
+        formData.append("id", id)
 
-        const updates = {
-            name: updatedName,
-            stock: updatedStock,
-            note: updatedNote,
-            createdAt: updatedCreatedAt
+        if(this.state.changedImage){
+            formData.append("image", this.state.selectedFile)
+            this.setState(()=>{
+                return{
+                    changedImage: false
+                }
+            })
         }
-        let url = "http://localhost:8080/updateItem?id=" + encodeURIComponent(id) + "&name=" +
-            encodeURIComponent(updates.name) + "&stock=" + encodeURIComponent(updates.stock) + "&createdAt="
-            + encodeURIComponent(moment(updates.createdAt).unix() * 1000) + "&note=" + encodeURIComponent(updates.note)
 
-        let req = new Request(url, {
-            method: "PATCH",
-        })
 
-        fetch(req).then(async (response, error) => {
-            if (error) {
-                console.log("error")
-                return
-            }
-
-            return
-        })
+        const url = "http://localhost:8080/updateItem"
+        await fetch(url, { method: "PATCH", body: formData })
     }
 
     onRemoveItem = () => {
@@ -170,7 +192,10 @@ class ItemForm extends React.Component {
     }
 
     onFileChange = event => {
-        this.setState({ selectedFile: event.target.files[0] })
+        this.setState({
+            selectedFile: event.target.files[0],
+            changedImage: true
+        })
     }
 
     //method handling the submission of the expense form
