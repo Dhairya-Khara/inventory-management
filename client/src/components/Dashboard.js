@@ -7,7 +7,8 @@ import Header from './Header'
 class Dashboard extends React.Component {
     constructor(props) {
         super(props)
-
+        window.location.reload()
+        window.stop()
     }
     render() {
         return (
