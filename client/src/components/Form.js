@@ -3,6 +3,7 @@ import moment from 'moment'
 import { SingleDatePicker } from 'react-dates'
 import 'react-dates/lib/css/_datepicker.css';
 import { withRouter } from 'react-router-dom'
+import { parse } from 'uuid';
 
 class ItemForm extends React.Component {
     constructor(props) {
@@ -84,35 +85,6 @@ class ItemForm extends React.Component {
     }
 
     onEditItem = async () => {
-        // const id = this.state.id
-
-        // const updatedName = this.state.description
-        // const updatedStock = this.state.stock
-        // const updatedNote = this.state.note
-        // const updatedCreatedAt = this.state.createdAt
-
-        // const updates = {
-        //     name: updatedName,
-        //     stock: updatedStock,
-        //     note: updatedNote,
-        //     createdAt: updatedCreatedAt
-        // }
-        // let url = "http://localhost:8080/updateItem?id=" + encodeURIComponent(id) + "&name=" +
-        //     encodeURIComponent(updates.name) + "&stock=" + encodeURIComponent(updates.stock) + "&createdAt="
-        //     + encodeURIComponent(moment(updates.createdAt).unix() * 1000) + "&note=" + encodeURIComponent(updates.note)
-
-        // let req = new Request(url, {
-        //     method: "PATCH",
-        // })
-
-        // fetch(req).then(async (response, error) => {
-        //     if (error) {
-        //         console.log("error")
-        //         return
-        //     }
-
-        //     return
-        // })
         const id = this.state.id
 
         const formData = new FormData()
@@ -122,15 +94,11 @@ class ItemForm extends React.Component {
         formData.append("note", this.state.note)
         formData.append("id", id)
 
-        if(this.state.changedImage){
-            formData.append("image", this.state.selectedFile)
-            this.setState(()=>{
-                return{
-                    changedImage: false
-                }
-            })
-        }
+        console.log(this.state.selectedFile)
+        if(this.state.selectedFile !== null){
 
+            formData.append("image", this.state.selectedFile)
+        }
 
         const url = "http://localhost:8080/updateItem"
         await fetch(url, { method: "PATCH", body: formData })
@@ -175,7 +143,6 @@ class ItemForm extends React.Component {
                 return
             }
             const parseResponse = await response.json()
-            console.log(parseResponse[0].name)
             //after getting information from database, store it in react state
             this.setState(() => {
                 return ({
@@ -183,7 +150,7 @@ class ItemForm extends React.Component {
                     description: parseResponse[0].name,
                     stock: parseResponse[0].stock,
                     createdAt: moment(parseResponse[0].createdAt),
-                    note: parseResponse[0].note
+                    note: parseResponse[0].note,
                 })
 
             })
@@ -192,6 +159,7 @@ class ItemForm extends React.Component {
     }
 
     onFileChange = event => {
+        // console.log("yo")
         this.setState({
             selectedFile: event.target.files[0],
             changedImage: true

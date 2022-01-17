@@ -23,8 +23,10 @@ class AddItem extends React.Component {
 
         // await fetch(req)
         let formData = new FormData()
+        if (image){
+            formData.append('image', image)
+        }
 
-        formData.append('image', image)
         formData.append('name', description)
         formData.append('createdAt', createdAt)
         formData.append('stock', stock)

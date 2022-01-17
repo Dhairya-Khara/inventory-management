@@ -41,7 +41,7 @@ class Item extends React.Component {
 
                 <Link className="list-item" to={`/dashboard/edit/id=${this.state.id}`}>
                     <div>
-                        <img src = {"http://localhost:8080/getImage?id="+encodeURIComponent(this.props.props.id)}></img>
+                        {this.props.props.image.data.length === 0 ? <div></div> : <img src={"http://localhost:8080/getImage?id=" + encodeURIComponent(this.props.props.id)}></img>}
                         <h3 className="list-item__title">{this.props.props.name}</h3>
                         <span className="list-item__sub-title">{this.getDate(this.props.props.createdAt)}</span>
                     </div>
