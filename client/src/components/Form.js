@@ -103,7 +103,7 @@ class ItemForm extends React.Component {
             formData.append("image", this.state.selectedFile)
         }
 
-        const url = "http://localhost:8080/updateItem"
+        const url = "/updateItem"
 
         try {
             await fetch(url, { method: "PATCH", body: formData })
@@ -115,7 +115,7 @@ class ItemForm extends React.Component {
 
     onRemoveItem = () => {
         const id = this.state.id
-        let url = "http://localhost:8080/deleteItem?id=" + encodeURIComponent(id)
+        let url = "/deleteItem?id=" + encodeURIComponent(id)
         let req = new Request(url, {
             method: "POST"
         })
@@ -149,7 +149,7 @@ class ItemForm extends React.Component {
         formData.append('note', this.state.note)
         formData.append('id', id)
 
-        const url = "http://localhost:8080/createItem"
+        const url = "/createItem"
 
         try {
             await fetch(url, { method: "POST", body: formData })
@@ -208,7 +208,7 @@ class ItemForm extends React.Component {
         const id = this.props.id
 
 
-        let url = "http://localhost:8080/singleItem?id=" + encodeURIComponent(id)
+        let url = "/singleItem?id=" + encodeURIComponent(id)
 
 
         let req = new Request(url, {

@@ -22,7 +22,7 @@ class ItemList extends React.Component {
     getItems = async () => {
 
 
-        await fetch('http://localhost:8080/getItems').then(async (response, error) => {
+        await fetch('/getItems').then(async (response, error) => {
             response.json().then((data, error) => {
                 for (let i = 0; i < data.length; i++) {
                     this.setState((previousState) => ({ items: previousState.items.concat(data[i]) }))
