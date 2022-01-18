@@ -33,7 +33,7 @@ You have done this correctly when a similiar looking terminal opens up.
 npm install
 ```
 
-6.We can finally start the web server
+6. We can finally start the web server
 ```bash
 npm run start
 ```
