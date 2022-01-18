@@ -20,10 +20,26 @@ For Mac/Linux
 mongod --dbpath=[PATH FOR mongodb-data]
 ```
 For Windows
-```
+```bash
 start mongod.exe --dbpath=[PATH for mongodb-data]
 ```
 
 You have done this correctly when a similiar looking terminal opens up.
 
 ![mongodb](https://i.ibb.co/RhrQF0d/image.png)
+
+5. Navigate to the root direcotry of the project and run
+```bash
+npm install
+```
+
+6.We can finally start the web server
+```bash
+npm run start
+```
+
+7. Open a web browser at http://localhost:3000/
+
+
+
+  
