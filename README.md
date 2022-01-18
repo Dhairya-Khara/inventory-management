@@ -1,7 +1,7 @@
 # Shopify Backend Developer Intern Challenge
 
 An inventory management web application for the Shopify backend developer intern challenge. 
-The application is built using <br/>[NodeJS](https://nodejs.org/en/) ([w/ express](https://expressjs.com/)), [MongoDB](https://www.mongodb.com/) ([w/ mongoose](https://mongoosejs.com/)) in the back end and [React](https://reactjs.org/) in the front end. Since this challenge is focussed on the back end, the client code is not provided. Instead a production version is stored in the build directory. As a result, you can easily focus on the back end.
+The application is built using <br/>[NodeJS](https://nodejs.org/en/) ([w/ express](https://expressjs.com/)) and [MongoDB](https://www.mongodb.com/) ([w/ mongoose](https://mongoosejs.com/)) in the back end and. Since this challenge is focussed on the back end, the client code (made with [React](https://reactjs.org/)) is not provided. Instead a production version is stored in the build directory. Thus, you can easily just focus on the back end code. 
 
 ## Getting Started
 The two prerequisite required to run this application are NodeJS and MongoDB.
