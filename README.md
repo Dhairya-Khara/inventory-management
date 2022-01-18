@@ -24,7 +24,7 @@ For Windows
 start mongod.exe --dbpath=[PATH FOR mongodb-data]
 ```
 
-You have done this correctly when a similiar looking terminal opens up.
+You have done this correctly when a terminal looking like this opens up.
 
 ![mongodb](https://i.ibb.co/RhrQF0d/image.png)
 
