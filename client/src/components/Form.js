@@ -3,7 +3,7 @@ import moment from 'moment'
 import { SingleDatePicker } from 'react-dates'
 import 'react-dates/lib/css/_datepicker.css';
 import { withRouter, Link } from 'react-router-dom'
-import { v4 as uuidv4 } from 'uuid'
+import { parse, v4 as uuidv4 } from 'uuid'
 
 class ItemForm extends React.Component {
     constructor(props) {
@@ -20,13 +20,12 @@ class ItemForm extends React.Component {
             errorState: "",
             selectedFile: null,
             changedImage: false,
-            imageError: false
+            imageError: false,
 
         }
 
         if (props.editItem) {
             this.getInfoOfIndividualItemFromAPI()
-
         }
     }
 
