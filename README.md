@@ -14,9 +14,13 @@ Once the installation is complete, we will first need to run the MongoDB server 
 
 ![bin directory](https://i.ibb.co/3Tts9CN/image.png)
 
-Open the terminal in this directory and run the following command:<br />
+4. Open the terminal in this directory and run the following command:<br />
 For Mac/Linux
 ```bash
 mongod --dbpath=[PATH FOR mongodb-data]
+```
+For Windows
+```
+start mongod.exe --dbpath=[PATH for mongodb-data]
 ```
 
