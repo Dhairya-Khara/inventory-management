@@ -21,7 +21,7 @@ mongod --dbpath=[PATH FOR mongodb-data]
 ```
 For Windows
 ```bash
-start mongod.exe --dbpath=[PATH for mongodb-data]
+start mongod.exe --dbpath=[PATH FOR mongodb-data]
 ```
 
 You have done this correctly when a similiar looking terminal opens up.
