@@ -33,9 +33,6 @@ router.post('/createItem', upload.single('image'), async (req, res) => {
     catch (e) {
         buffer = ""
     }
-
-
-
     try {
         const client_item = {
             name: req.body.name,
@@ -52,7 +49,6 @@ router.post('/createItem', upload.single('image'), async (req, res) => {
 
     }
     catch (e) {
-        console.log(e)
         res.status(400).send(e)
     }
 })
