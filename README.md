@@ -40,6 +40,14 @@ npm run start
 
 7. Open a web browser at http://localhost:3000/
 
+## Features
+- Create Inventory Items
+- Reading Inventory Items (all of them and a particular item)
+- Upading Items
+- Deleting Items
+
+Additional Feature
+- Allow image uploads AND store images with generated thumbnails.
 
 
   
