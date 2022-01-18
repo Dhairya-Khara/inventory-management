@@ -26,4 +26,4 @@ start mongod.exe --dbpath=[PATH for mongodb-data]
 
 You have done this correctly when a similiar looking terminal opens up.
 
-![mongodb](ahttps://i.ibb.co/RhrQF0d/image.png)
+![mongodb](https://i.ibb.co/RhrQF0d/image.png)
