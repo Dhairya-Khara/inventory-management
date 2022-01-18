@@ -43,8 +43,8 @@ npm run start
 ## Features
 - Create Inventory Items
 - Reading Inventory Items (all of them and a particular item)
-- Upading Items
-- Deleting Items
+- Updating Inventory Items
+- Deleting Inventory Items
 
 Additional Feature
 - Allow image uploads AND store images with generated thumbnails.
