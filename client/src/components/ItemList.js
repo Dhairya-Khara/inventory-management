@@ -7,14 +7,22 @@ import Item from './Item'
 class ItemList extends React.Component {
     constructor(props) {
         super(props)
+
+
         this.state = {
-            items: []
+            items: [],
+
         }
+
         this.getItems()
+
+
     }
 
-    getItems() {
-        fetch('http://localhost:8080/getItems').then(async (response, error) => {
+    getItems = async () => {
+
+
+        await fetch('http://localhost:8080/getItems').then(async (response, error) => {
             response.json().then((data, error) => {
                 for (let i = 0; i < data.length; i++) {
                     this.setState((previousState) => ({ items: previousState.items.concat(data[i]) }))
@@ -27,7 +35,9 @@ class ItemList extends React.Component {
     render() {
 
         return (
+
             <div className="content-container">
+                <h3>If the data is not updated, please refresh the page.</h3>
                 <div className="list-header">
                     <div className="show-for-mobile">Expenses</div>
                     <div className="show-for-desktop">Items</div>

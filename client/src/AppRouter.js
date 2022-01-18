@@ -11,10 +11,6 @@ class AppRouter extends React.Component {
             // <Dashboard></Dashboard>
             <BrowserRouter>
                 <div>
-                    {/* <Routes>
-                        <Route path="/" element={<Dashboard/>} exact={true} />
-                        <Route path="/dashboard/create" element = {<AddItem/>} />
-                    </Routes> */}
                     <Switch>
                         <Route path="/" component={Dashboard}exact={true} />
                         <Route path="/dashboard/create" component = {AddItem} />

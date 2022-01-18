@@ -27,7 +27,7 @@ class EditItem extends React.Component {
                 </div>
                 {/* Item form with info from the api call is rendered */}
                 <div className="content-container">
-                    <Form callAPI={true} id={this.props.match.url.substring(19, this.props.match.url.length)}/>
+                    <Form editItem={true} id={this.props.match.url.substring(19, this.props.match.url.length)} />
                 </div>
 
             </div>

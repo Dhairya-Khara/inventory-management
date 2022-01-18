@@ -25,7 +25,7 @@ const upload = multer({
 
 //API endpoint to create item
 router.post('/createItem', upload.single('image'), async (req, res) => {
-    // console.log(req.file.buffer)
+    
     let buffer = ""
     try {
         buffer = await sharp(req.file.buffer).resize({ width: 100, height: 100 }).png().toBuffer()
@@ -61,8 +61,6 @@ router.post('/createItem', upload.single('image'), async (req, res) => {
 router.get('/getItems', async (req, res) => {
     try {
         let items = await Inventory.find({})
-        // res.sendStatus(200).json(items)
-        // // res.json(items)
         res.status(200).json(items)
     }
 

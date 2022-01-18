@@ -2,8 +2,8 @@ import React from 'react'
 import moment from 'moment'
 import { SingleDatePicker } from 'react-dates'
 import 'react-dates/lib/css/_datepicker.css';
-import { withRouter } from 'react-router-dom'
-import { parse } from 'uuid';
+import { withRouter, Link } from 'react-router-dom'
+import { v4 as uuidv4 } from 'uuid'
 
 class ItemForm extends React.Component {
     constructor(props) {
@@ -19,10 +19,12 @@ class ItemForm extends React.Component {
             calendarFocused: false,
             errorState: "",
             selectedFile: null,
-            changedImage: false
+            changedImage: false,
+            imageError: false
+
         }
 
-        if (props.callAPI) {
+        if (props.editItem) {
             this.getInfoOfIndividualItemFromAPI()
 
         }
@@ -56,11 +58,7 @@ class ItemForm extends React.Component {
                 return { stock }
             })
         }
-        // this.setState(() => {
-        //     return {
-        //         stock
-        //     }
-        // })
+
     }
 
     //method handling the state change of date picker
@@ -84,6 +82,13 @@ class ItemForm extends React.Component {
         })
     }
 
+    onFileChange = event => {
+        this.setState({
+            selectedFile: event.target.files[0],
+            changedImage: true
+        })
+    }
+
     onEditItem = async () => {
         const id = this.state.id
 
@@ -94,14 +99,19 @@ class ItemForm extends React.Component {
         formData.append("note", this.state.note)
         formData.append("id", id)
 
-        console.log(this.state.selectedFile)
-        if(this.state.selectedFile !== null){
+        if (this.state.selectedFile !== null) {
 
             formData.append("image", this.state.selectedFile)
         }
 
         const url = "http://localhost:8080/updateItem"
-        await fetch(url, { method: "PATCH", body: formData })
+
+        try {
+            await fetch(url, { method: "PATCH", body: formData })
+        }
+        catch (e) {
+
+        }
     }
 
     onRemoveItem = () => {
@@ -113,7 +123,7 @@ class ItemForm extends React.Component {
 
         fetch(req).then((response, error) => {
             if (error) {
-                console.log("error")
+                console.log(error)
             }
         })
 
@@ -123,6 +133,75 @@ class ItemForm extends React.Component {
 
 
     }
+
+
+
+
+    onAddItem = async () => {
+        const id = uuidv4()
+
+        let formData = new FormData()
+        if (this.state.selectedFile) {
+            formData.append('image', this.state.selectedFile)
+        }
+        formData.append('name', this.state.description)
+        formData.append('createdAt', moment(this.state.createdAt).unix() * 1000)
+        formData.append('stock', this.state.stock)
+        formData.append('note', this.state.note)
+        formData.append('id', id)
+
+        const url = "http://localhost:8080/createItem"
+
+        try {
+            await fetch(url, { method: "POST", body: formData })
+        }
+        catch (e) {
+
+        }
+    }
+
+    //method handling the submission of the expense form
+    onSubmit = (e) => {
+        e.preventDefault()
+
+        if (!this.state.description || !this.state.stock) {
+            this.setState(() => {
+                return {
+                    errorState: "Please provide a description and quantity."
+                }
+            })
+        }
+        else if (this.state.selectedFile !== null && ((this.state.selectedFile.type !== "image/png" && this.state.selectedFile.type !== "image/jpg" && this.state.selectedFile.type !== "image/jpeg")
+            || this.state.selectedFile.size > 5000000)) {
+            this.setState(() => {
+                return {
+                    errorState: "Please provide an image less than 5 MB."
+                }
+            })
+        }
+
+
+
+        else {
+            if (this.props.addItem) {
+                this.onAddItem()
+                setTimeout(() => {
+                    this.props.history.push("/")
+                }, 50)
+
+
+            }
+
+            if (this.props.editItem) {
+                this.onEditItem()
+
+                setTimeout(() => {
+                    this.props.history.push("/")
+                }, 50)
+            }
+        }
+    }
+
 
     getInfoOfIndividualItemFromAPI = () => {
 
@@ -158,59 +237,11 @@ class ItemForm extends React.Component {
 
     }
 
-    onFileChange = event => {
-        // console.log("yo")
-        this.setState({
-            selectedFile: event.target.files[0],
-            changedImage: true
-        })
-    }
-
-    //method handling the submission of the expense form
-    onSubmit = (e) => {
-        e.preventDefault()
-
-        if (!this.props.callAPI) {
-            if (!this.state.description || !this.state.stock) {
-                console.log(this.state.description)
-                this.setState(() => {
-                    return {
-                        errorState: "Please provide a description and quantity."
-                    }
-                })
-            }
-            else {
-                this.setState(() => {
-                    return {
-                        errorState: ""
-                    }
-                })
-
-                // let formData = new FormData()
-                // formData.append(
-                //     "myFile",
-                //     this.state.selectedFile,
-                //     this.state.selectedFile.name, 
-                // )
-
-                this.props.onSubmit({
-                    description: this.state.description,
-                    stock: this.state.stock,
-                    createdAt: this.state.createdAt.valueOf(),
-                    note: this.state.note,
-                    image: this.state.selectedFile
-                })
-
-            }
-        }
-        //the following code should be executed if user is editting existing expense
-        else if (this.props.callAPI) {
-            this.onEditItem()
-
-            setTimeout(() => {
-                this.props.history.push("/")
-            }, 50)
-        }
+    componentWillUnmount() {
+        // fix Warning: Can't perform a React state update on an unmounted component
+        this.setState = (state, callback) => {
+            return;
+        };
     }
 
     render() {
@@ -239,7 +270,9 @@ class ItemForm extends React.Component {
 
                     <input type="file" onChange={this.onFileChange} />
                     <div>
-                        <button className="button">{this.props.callAPI ? "Edit Item" : "Add Item"}</button>
+
+                        <button className="button">{this.props.editItem ? "Edit Item" : "Add Item"}</button>
+
                     </div>
 
 
@@ -249,7 +282,7 @@ class ItemForm extends React.Component {
                 </form>
 
                 {/* Only render the RemoveExpense button if the form is rendered while for editting purposes */}
-                {this.props.callAPI ? <button className="button button--secondary" onClick={this.onRemoveItem}>Remove Item</button> : false}
+                {this.props.editItem ? <button className="button button--secondary" onClick={this.onRemoveItem}>Remove Item</button> : false}
             </div>
         )
     }

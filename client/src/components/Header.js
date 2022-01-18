@@ -9,7 +9,7 @@ class Header extends React.Component {
                     <div className="content-container" >
                         <div className="header__content">
                             <Link to="/" className="header__title">
-                                <h1>Inventory</h1>
+                                <h1>Inventory Management</h1>
                             </Link>
 
                         </div>
