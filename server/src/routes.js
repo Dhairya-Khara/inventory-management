@@ -1,14 +1,20 @@
 const express = require('express')
 const multer = require('multer')
 const sharp = require('sharp')
+const path = require('path')
 
 const router = new express.Router()
 
 const Inventory = require('./database')
 
+const clientDirectory = path.join(__dirname, '../build')
+
+router.use(express.static(clientDirectory))
+
 router.get('/', (req, res) => {
-    res.send("yo")
-})
+    //   res.sendFile(path.join(__dirname, 'build', 'index.html'));
+    res.sendFile(path.join(clientDirectory, '/index.html'))
+});
 
 const upload = multer({
     limits: {
