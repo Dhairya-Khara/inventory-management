@@ -28,17 +28,22 @@ You have done this correctly when a terminal looking like this opens up.
 
 ![mongodb](https://i.ibb.co/RhrQF0d/image.png)
 
-5. Navigate to the root direcotry of the project and run
+5. Clone the repo using the following command
+```bash
+git clone git@github.com:Dhairya-Khara/shopify-backend-development.git
+```
+
+6. Navigate to the root direcotry of the project and run
 ```bash
 npm install
 ```
 
-6. We can finally start the web server
+7. We can finally start the web server
 ```bash
 npm run start
 ```
 
-7. Open a web browser at http://localhost:3000/
+8. Open a web browser at http://localhost:3000/
 
 ## Features
 - Create Inventory Items
