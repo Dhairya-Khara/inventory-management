@@ -4,6 +4,7 @@ An inventory management web application for the Shopify backend developer intern
 The application is built using <br/>[NodeJS](https://nodejs.org/en/) ([w/ express](https://expressjs.com/)) and [MongoDB](https://www.mongodb.com/) ([w/ mongoose](https://mongoosejs.com/)). Since this challenge is focussed on the back end, the client code (made with [React](https://reactjs.org/)) is not provided. Instead a production version is stored in the build directory. Thus, you can easily just focus on the back end code. 
 
 ## Getting Started
+Feel free to skip a step if you already have the prerequisite, this guide will assume no background knowledge of the technologies used. 
 The two prerequisite required to run this application are NodeJS and MongoDB.
 
 1. Install NodeJS for your OS [here](https://nodejs.org/en/download/)
