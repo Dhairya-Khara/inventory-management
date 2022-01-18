@@ -11,11 +11,12 @@ const clientDirectory = path.join(__dirname, '../build')
 
 router.use(express.static(clientDirectory))
 
+//serving up build directory
 router.get('/', (req, res) => {
-    //   res.sendFile(path.join(__dirname, 'build', 'index.html'));
     res.sendFile(path.join(clientDirectory, '/index.html'))
 });
 
+//configuring multer to allow image upload
 const upload = multer({
     limits: {
         fileSize: 5000000
@@ -156,8 +157,9 @@ router.get('/getImage', async (req, res) => {
     }
 })
 
+//API endpoint for 404.
 router.get('*', (req, res)=>{
-    res.status(404).send('404. Not Found')
+    res.status(404).send('<p>404 Not Found. </p> <a href = "/"> Go Home </a>')
 })
 
 module.exports = router
